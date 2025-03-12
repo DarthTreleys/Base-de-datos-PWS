@@ -1,0 +1,3 @@
+<?php
+echo ‘<h1>Plana de Nom1 Cognom1 i Nom2 Cognom2</h1>’; phpinfo();
+?>
