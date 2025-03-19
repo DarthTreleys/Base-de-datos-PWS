@@ -11,10 +11,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verificar si el formulario fue en
     $email = $_POST['email']; // Obtener el email ingresado
     $password = $_POST['password']; // Obtener la contraseña ingresada
 
+
+    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password)) {
+        echo "login correcto";
+    }
+
+      if ($result = $mysqli -> query("SELECT * FROM usuaris where email != $email and password != $password)) {
+        echo "login incorrecto";
+    }
     // Preparar la consulta para buscar el usuario en la base de datos
-    $stmt = $conn->prepare("SELECT id_u, email, password, is_admin FROM usuaris WHERE email=?");
-    $stmt->bind_param("s", $email); // Asignar el email al parámetro de la consulta
-    $stmt->execute(); // Ejecutar la consulta
+    //$stmt = $conn->prepare("SELECT id_u, email, password, is_admin FROM usuaris WHERE email=? and password=?");
+    //$stmt->bind_param("ss", $email, $password); // Asignar el email al parámetro de la consulta
+    //$stmt->execute(); // Ejecutar la consulta
     $result = $stmt->get_result(); // Obtener el resultado de la consulta
 
     if ($row = $result->fetch_assoc()) { // Verificar si el usuario existe
