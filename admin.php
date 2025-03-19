@@ -6,8 +6,10 @@
 //}
 //echo "<h1>Benvingut Admin – Marc Jimenez i Joan Cos</h1>";
 //echo '<a href="logout.php">Logout</a>';
+
+//Hace falta hacer un select a la base de datos, para guardar en una variable el valor del atributo de usuario "isadmin" en el caso de que sea 0 o 1
     sesssion_start();
-    
+    $conn = new mysqli("200.200.200.10", "root2", "12345", "ASIX2");
     if(empty($_SESSION) || $_SESSION["admin"] !=1){
         session_destroy();
         header("location:login.php");
