@@ -12,12 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verificar si el formulario fue en
     $password = $_POST['password']; // Obtener la contraseña ingresada
 
 
-    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=1)) {
+    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=1")) {
         echo "login correcto";
         header("location:admin.php");
     }
 
-    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=0)) {
+    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=0")) {
         echo "login correcto";
         header("location:usuari.php");
     }
