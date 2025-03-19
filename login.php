@@ -1,6 +1,6 @@
 <?php
 session_start(); // Iniciar sesión
-$conn = new mysqli("localhost", "root2", "12345", "ASIX2"); // Conectar a la base de datos
+$conn = new mysqli("200.200.200.10", "root2", "12345", "ASIX2"); // Conectar a la base de datos
 
 // Verificar conexión
 if ($conn->connect_error) {
