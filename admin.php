@@ -14,13 +14,13 @@ $admin
 
     sesssion_start();
     $conn = new mysqli("200.200.200.10", "root2", "12345", "ASIX2");
-    if(empty($_SESSION) || $_SESSION["admin"] !=1){
-        session_destroy();
-        header("location:login.php");
-    }
-    if(!empty($_POST["logout"])){
-        session_destroy();
-        header("location:login.php");
+    //if(empty($_SESSION) || $_SESSION["admin"] !=1){
+        //session_destroy();
+        //header("location:login.php");
+    //}
+    //if(!empty($_POST["logout"])){
+       //session_destroy();
+        //header("location:login.php");
 
     echo "Benvingut admin";
 ?>
