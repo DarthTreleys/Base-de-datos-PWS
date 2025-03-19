@@ -12,37 +12,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verificar si el formulario fue en
     $password = $_POST['password']; // Obtener la contraseña ingresada
 
 
-    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password)) {
+    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=1)) {
         echo "login correcto";
+        header("location:admin.php");
     }
 
-      if ($result = $mysqli -> query("SELECT * FROM usuaris where email != $email and password != $password)) {
-        echo "login incorrecto";
+    if ($result = $mysqli -> query("SELECT * FROM usuaris where email = $email and password = $password AND is_admin=0)) {
+        echo "login correcto";
+        header("location:usuari.php");
     }
+
+
+    else {
+        header("location:login.php");
+    }
+// borrar
+
+    //if ($result -> num_rows == 1)
+      //if ($result = $mysqli -> query("SELECT * FROM usuaris where email != $email and password != $password)) {
+        //echo "login incorrecto";
+    //}
     // Preparar la consulta para buscar el usuario en la base de datos
     //$stmt = $conn->prepare("SELECT id_u, email, password, is_admin FROM usuaris WHERE email=? and password=?");
     //$stmt->bind_param("ss", $email, $password); // Asignar el email al parámetro de la consulta
     //$stmt->execute(); // Ejecutar la consulta
-    $result = $stmt->get_result(); // Obtener el resultado de la consulta
+    //$result = $stmt->get_result(); // Obtener el resultado de la consulta
 
-    if ($row = $result->fetch_assoc()) { // Verificar si el usuario existe
-        if (password_verify($password, $row['password'])) { // Verificar si la contraseña es correcta
-            $_SESSION['user'] = $row['email']; // Guardar el email en la sesión
-            $_SESSION['role'] = ($row['is_admin'] == 1) ? "admin" : "client"; // Determinar el rol del usuario
+    //if ($row = $result->fetch_assoc()) { // Verificar si el usuario existe
+      //  if (password_verify($password, $row['password'])) { // Verificar si la contraseña es correcta
+        //    $_SESSION['user'] = $row['email']; // Guardar el email en la sesión
+          //  $_SESSION['role'] = ($row['is_admin'] == 1) ? "admin" : "client"; // Determinar el rol del usuario
 
             // Redirigir según el rol del usuario
-            header("Location: " . ($_SESSION['role'] == "admin" ? "admin.php" : "client.php"));
-            exit(); // Finalizar el script para evitar ejecución innecesaria
-        } else {
-            echo "¡Contraseña incorrecta!"; // Mensaje si la contraseña no es válida
-        }
-    } else {
-        echo "¡Usuario no encontrado!"; // Mensaje si el usuario no existe
-    }
+            //header("Location: " . ($_SESSION['role'] == "admin" ? "admin.php" : "client.php"));
+            //exit(); // Finalizar el script para evitar ejecución innecesaria
+        //} else {
+          //  echo "¡Contraseña incorrecta!"; // Mensaje si la contraseña no es válida
+        //}
+    //} else {
+      //  echo "¡Usuario no encontrado!"; // Mensaje si el usuario no existe
+    //}
     
-    $stmt->close(); // Cerrar la consulta preparada
-}
-$conn->close(); // Cerrar la conexión a la base de datos
+    //$stmt->close(); // Cerrar la consulta preparada
+//}
+//$conn->close(); // Cerrar la conexión a la base de datos
 ?>
 
 <!-- Formulario de inicio de sesión -->
