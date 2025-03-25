@@ -5,7 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "client") {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "", "ASIX2");
+$conn = new mysqli("localhost", "root", "123", "ASIX2");
 if ($conn->connect_error) {
     die("Connexió fallida: " . $conn->connect_error);
 }
@@ -21,15 +21,16 @@ $_SESSION['id_u'] = $_SESSION['id_u'] ?? 1; // Asignar un ID de usuario para pru
 
 <!-- Formulari per afegir comentaris -->
 <form method="post">
-    <input type="text" name="missatge" placeholder="Escriu un missatge" required>
+    <label>Missatge: <input type="text" name="missatge" placeholder="Escriu un missatge" required></label>
     <button type="submit" name="enviar">Enviar</button>
 </form>
 
 <?php
 if (isset($_POST['enviar'])) {
     $missatge = htmlspecialchars($_POST['missatge']);
+    $id_u = $_SESSION['id_u'];
     $stmt = $conn->prepare("INSERT INTO comentaris (missatge, id_u) VALUES (?, ?)");
-    $stmt->bind_param("si", $missatge, $_SESSION['id_u']);
+    $stmt->bind_param("si", $missatge, id_u);
     $stmt->execute();
 }
 
