@@ -6,7 +6,7 @@ $usuari = "root";
 $contrasenya = "12345";
 $basededatos = "ASIX2";
 
-$conn = new mysqli($ip, $usuari, $contrasenya, $basededatos); 
+$conn = new mysqli("localhost", "root2", "12345", "ASIX2"); 
 // Conectar a la base de datos
 
 // Verificar conexión
