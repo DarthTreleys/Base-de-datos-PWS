@@ -11,8 +11,8 @@ $conn = new mysqli("localhost", "root2", "12345", "ASIX2");
 
 // Verificar conexión
 if ($_SERVER['REQUEST_METHOD'] == "POST") { // Verificar si el formulario fue enviado
-    $email = $_POST['email']; // Obtener el email ingresado
-    $password = $_POST['password']; // Obtener la contraseña ingresada
+    $email = htmlspecialchars($_POST['email']); // Evitar XSS
+    $password = htmlspecialchars($_POST['password']); // Evitar XSS
 
     $stmt = $conn->prepare("SELECT * FROM usuaris WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // Verificar si el formulario fue en
     $resultat = $stmt->get_result();
 
     while ($fila_bbdd = $resultat->fetch_assoc()) {
-        if ($_POST['email'] == $fila_bbdd['email']) {
-            if ($_POST['password'] != $fila_bbdd['password']) {
-                echo " esa contraseña no es correcta ";
+        if ($email == $fila_bbdd['email']) {
+            if ($password != $fila_bbdd['password']) {
+                echo "Esa contraseña no es correcta";
             } else {
                 $_SESSION['id_usuari'] = $fila_bbdd["id_u"];
                 if ($fila_bbdd["is_admin"] != 0) {
@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // Verificar si el formulario fue en
                 } else {
                     header("location:admin.php");
                 }
+                exit();
             }
         }
     }
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // Verificar si el formulario fue en
 
 $conn->close();
 ?>
+
 <!-- Formulario de inicio de sesión -->
 <form method="post">
     <input type="text" name="email" placeholder="Email" required> <!-- Campo para ingresar el email -->
