@@ -39,3 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { // Verificar si el formulario fue en
 
 $conn->close();
 ?>
+<!-- Formulario de inicio de sesión -->
+<form method="post">
+    <input type="text" name="email" placeholder="Email" required> <!-- Campo para ingresar el email -->
+    <input type="password" name="password" placeholder="Contraseña" required> <!-- Campo para ingresar la contraseña -->
+    <button type="submit">Login</button> <!-- Botón para enviar el formulario -->
+</form>
